@@ -63,7 +63,18 @@ try:
     import minigrid
 except ImportError:
     pass
+try:
+    from custom_envs.unitree_go2_command_env import UnitreeGo2CommandEnv
 
+    gym.register(
+        id="UnitreeGo2Command-v0",
+        entry_point=(
+            "custom_envs.unitree_go2_command_env:"
+            "UnitreeGo2CommandEnv"
+        ),
+    )
+except ImportError:
+    pass
 
 # Register no vel envs
 def create_no_vel_env(env_id: str) -> Callable[[Optional[str]], gym.Env]:

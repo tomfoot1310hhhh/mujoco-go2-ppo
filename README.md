@@ -36,3 +36,29 @@ To visualize, it's the same command but you train `train.py` to `enjoy.py`:
 python enjoy.py --algo ppo --env UnitreeGo2-v0 -f logs/
 ```
 Note: -f logs/ will make it save automatically to logs/\[ALGO NAME], e.g. logs/ppo. For organization, I sometimes customized it to -f vel_survive/ to save the logs when I was only rewarding forward velocity and a survival bonus, all the way up to folders like vel_survive_drift_ang_pose ... and so on. It made for very long file names but it made it easier for data analysis/comparison and future ablation studies with the reward terms.
+
+## Command-controlled locomotion (Experiment 27)
+
+This fork adds a command-conditioned PPO environment for Unitree Go2 in
+MuJoCo. Experiment 27 supports three discrete commands:
+
+- Forward: `command_x=0.5`, `command_yaw=0.0`
+- Right turn: `command_x=0.3`, `command_yaw=0.5`
+- Left turn: `command_x=0.3`, `command_yaw=-0.5`
+
+
+The trained PPO model and observation normalization statistics are stored in:
+
+```text
+rl-baselines3-zoo/models/experiment_27/
+```
+
+To run interactive command control on macOS:
+
+```bash
+mjpython rl-baselines3-zoo/command_control.py
+```
+
+Enter `直行`, `左转`, `右转`, or `退出` in the terminal.
+
+This controller is for MuJoCo simulation only and does not control a real robot.
